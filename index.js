@@ -8,34 +8,53 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/rifa', function (req, res) {
+    res.render('configurarifa')
+});
+
+app.post('/rifa', function (req, res) {
+    const inicio = parseInt(req.body.inicio)
+    const fim = parseInt(req.body.fim)
+    const mensagem = req.body.mensagem
+
+    res.render('rifa', { inicio: inicio, fim: fim, mensagem: mensagem });
+});
+
+
+
+
+
 app.get('/Calculadora', function (req, res) {
     //res.send("Oi mundo")
     res.render('calculadora')
 })/*
     app.post('/Calculadora', function (req, res) {
         res.send("resultado" + req.body.op)
-    })*/
+    })*
 
 app.post('/Calculadora', function (req, res) {
+    let resultado;
     if (req.body.op == "soma") {
-        const soma = parseFloat(req.body.op1) + parseFloat(req.body.op2)
-        res.send("Resultado da soma: " + soma)
+        resultado = parseFloat(req.body.op1) + parseFloat(req.body.op2)
+        //res.send("Resultado da soma: " + soma)
     }
-    else if (req.body.op == "subtração") {
-        const subtracao = parseFloat(req.body.op1) - parseFloat(req.body.op2)
-        res.send("Resultado da subtração: " + subtracao)
+    else if (req.body.op == "subtracao") {
+        resultado = parseFloat(req.body.op1) - parseFloat(req.body.op2)
+        //res.send("Resultado da subtração: " + subtracao)
     }
     else if (req.body.op == "multiplicacao") {
-        const mult = parseFloat(req.body.op1) * parseFloat(req.body.op2)
-        res.send("Resultado da multiplicação: " + mult)
+        resultado = parseFloat(req.body.op1) * parseFloat(req.body.op2)
+        //res.send("Resultado da multiplicação: " + mult)
     }
     else if (req.body.op == "divisao") {
-        const div = parseFloat(req.body.op1) / parseFloat(req.body.op2)
-        res.send("Resultado da divisão: " + div)
+        resultado = parseFloat(req.body.op1) / parseFloat(req.body.op2)
+        //res.send("Resultado da divisão: " + div)
     }
     else {
         res.send("Operação inválida!")
     }
+    res.render('resposta.ejs', { Valor: resultado, op: req.body.op })
+    //res.send("Ricardo");
 })
 
 
@@ -46,7 +65,8 @@ app.post('/Calculadora', function (req, res) {
 
 
 
-/*
+/*const soma
+const soma
 app.get('/Ricardo', function (req, res) {
     res.send("Ricardo!")
 })
